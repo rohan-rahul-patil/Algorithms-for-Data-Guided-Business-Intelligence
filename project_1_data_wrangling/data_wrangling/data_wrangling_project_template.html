@@ -11840,13 +11840,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -11868,7 +11869,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q1_function</span><span class="p">():</span>
@@ -11878,7 +11879,7 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;./data_raw/*.xlsx&#39;</span><span class="p">)</span>
 
 
 <span class="c1"># Call the function and print the result. This result is used in subsequent questions.</span>
@@ -11887,6 +11888,24 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;./data_raw/Python-QUIZ Sets (7 min)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Strings (5 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Functions (18 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Exceptions (10 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Taxonomy of Python Data Structures (12 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Coercion (6 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Dictionaries (10 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Iterations (6 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Tuples (10 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Conditionals (6 min.)-grades.xlsx&#39;, &#39;./data_raw/Python-QUIZ Lists (10 min.)-grades.xlsx&#39;]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -11906,7 +11925,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q2_function</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
@@ -11916,7 +11935,10 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">file</span>
+    <span class="k">return</span> <span class="kc">None</span> 
         
 
 <span class="c1"># Call the function and print the result. Use this to check the correctness of your code and for debugging.</span>
@@ -11925,6 +11947,24 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>./data_raw/Python-QUIZ Dictionaries (10 min.)-grades.xlsx
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -11945,7 +11985,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q3_function</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
@@ -11955,7 +11995,9 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">Q2_function</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
 
 
 <span class="c1"># Call the function and print the result. This result is used in subsequent questions.</span>
@@ -11965,6 +12007,100 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>       State                  Started on                   Completed  \
+0   Finished    February 5 2018  3:19 PM    February 5 2018  3:34 PM   
+1   Finished    February 4 2018  4:01 PM    February 4 2018  4:19 PM   
+12  Finished    February 6 2018  3:57 PM    February 6 2018  4:12 PM   
+2   Finished   February 10 2018  4:05 PM   February 10 2018  4:23 PM   
+3   Finished    February 4 2018  4:59 PM    February 4 2018  5:16 PM   
+4   Finished    February 5 2018  5:20 PM    February 5 2018  5:38 PM   
+5   Finished   February 10 2018  9:49 PM  February 10 2018  10:07 PM   
+6   Finished    February 5 2018  8:30 PM    February 5 2018  8:48 PM   
+7   Finished   February 13 2018  4:17 AM   February 13 2018  4:35 AM   
+8   Finished   February 12 2018  2:19 PM   February 12 2018  2:35 PM   
+9   Finished  February 13 2018  10:45 AM  February 13 2018  11:03 AM   
+10  Finished   February 11 2018  1:48 AM   February 11 2018  2:06 AM   
+4   Finished    February 5 2018  5:20 PM    February 5 2018  5:38 PM   
+5   Finished   February 10 2018  9:49 PM  February 10 2018  10:07 PM   
+11  Finished   February 13 2018  7:07 PM   February 13 2018  7:20 PM   
+12  Finished    February 6 2018  3:57 PM    February 6 2018  4:12 PM   
+13  Finished    February 5 2018  6:52 PM    February 5 2018  7:10 PM   
+14  Finished  February 13 2018  11:33 AM  February 13 2018  11:51 AM   
+15  Finished   February 11 2018  3:39 PM   February 11 2018  3:57 PM   
+6   Finished    February 5 2018  8:30 PM    February 5 2018  8:48 PM   
+16  Finished   February 6 2018  10:41 AM   February 6 2018  11:30 AM   
+17  Finished   February 11 2018  4:20 PM   February 11 2018  4:38 PM   
+18  Finished   February 12 2018  7:52 PM   February 12 2018  8:07 PM   
+8   Finished   February 12 2018  2:19 PM   February 12 2018  2:35 PM   
+
+         Time taken  Grade/45.00  Q. 1 /5.00  Q. 2 /10.00  Q. 3 /6.00  \
+0   14 mins 16 secs           32           5            6           6   
+1   17 mins 54 secs           31           5            8           6   
+12  15 mins 44 secs           20           3            4           3   
+2           18 mins           30           5            6           6   
+3   17 mins 31 secs           26           5            6           6   
+4   17 mins 59 secs           25           5            6           6   
+5           18 mins           24           5            6           6   
+6           18 mins           23           5            6           0   
+7     18 mins 1 sec           23           4            4           6   
+8   16 mins 44 secs           22           4            4           6   
+9     18 mins 1 sec           22           5            8           6   
+10          18 mins           21           5           10           6   
+4   17 mins 59 secs           25           5            6           6   
+5           18 mins           24           5            6           6   
+11  12 mins 59 secs           21           4            4           3   
+12  15 mins 44 secs           20           3            4           3   
+13    18 mins 1 sec           17           4            4           6   
+14          18 mins           17           5            4           3   
+15    18 mins 1 sec           16           3            6           3   
+6           18 mins           23           5            6           0   
+16  48 mins 39 secs           15           4            2           3   
+17    18 mins 1 sec           13           3            4           6   
+18  14 mins 31 secs           13           3            4           6   
+8   16 mins 44 secs           22           4            4           6   
+
+   Q. 4 /6.00 Q. 5 /12.00 Q. 6 /6.00  id  
+0        3.00       12.00       0.00   0  
+1           -       12.00       0.00   1  
+12          -       10.00       0.00  12  
+2        3.00       10.00          -   2  
+3        3.00        6.00       0.00   3  
+4        6.00        2.00       0.00   4  
+5        3.00        4.00          -   5  
+6        0.00        6.00       6.00   6  
+7        3.00        6.00       0.00   7  
+8        0.00        8.00       0.00   8  
+9        3.00           -          -   9  
+10          -           -          -  10  
+4        6.00        2.00       0.00   4  
+5        3.00        4.00          -   5  
+11       0.00        4.00       6.00  11  
+12          -       10.00       0.00  12  
+13       3.00        0.00          -  13  
+14       3.00        2.00       0.00  14  
+15       0.00        4.00          -  15  
+6        0.00        6.00       6.00   6  
+16       0.00        6.00       0.00  16  
+17          -           -          -  17  
+18       0.00        0.00       0.00  18  
+8        0.00        8.00       0.00   8  
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -11986,7 +12122,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q4_function</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
@@ -11996,7 +12132,11 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+    <span class="n">df_subset</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;Time taken&quot;</span><span class="p">,</span> <span class="s2">&quot;Grade/45.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 1 /5.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 2 /10.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 3 /6.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 4 /6.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 5 /12.00&quot;</span><span class="p">,</span> <span class="s2">&quot;Q. 6 /6.00&quot;</span><span class="p">]]</span>
+    <span class="n">top_10</span><span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="n">df_subset</span><span class="p">,</span> <span class="n">top_10</span><span class="p">)</span>
 
 
 <span class="c1"># Call the function and print the results. These results are used in subsequent questions.</span>
@@ -12013,6 +12153,115 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Column Names
+[&#39;State&#39;, &#39;Started on&#39;, &#39;Completed&#39;, &#39;Time taken&#39;, &#39;Grade/45.00&#39;, &#39;Q. 1 /5.00&#39;, &#39;Q. 2 /10.00&#39;, &#39;Q. 3 /6.00&#39;, &#39;Q. 4 /6.00&#39;, &#39;Q. 5 /12.00&#39;, &#39;Q. 6 /6.00&#39;, &#39;id&#39;]
+
+Subsetted Data
+    id       Time taken  Grade/45.00  Q. 1 /5.00  Q. 2 /10.00  Q. 3 /6.00  \
+0    0  14 mins 16 secs           32           5            6           6   
+1    1  17 mins 54 secs           31           5            8           6   
+12  12  15 mins 44 secs           20           3            4           3   
+2    2          18 mins           30           5            6           6   
+3    3  17 mins 31 secs           26           5            6           6   
+4    4  17 mins 59 secs           25           5            6           6   
+5    5          18 mins           24           5            6           6   
+6    6          18 mins           23           5            6           0   
+7    7    18 mins 1 sec           23           4            4           6   
+8    8  16 mins 44 secs           22           4            4           6   
+9    9    18 mins 1 sec           22           5            8           6   
+10  10          18 mins           21           5           10           6   
+4    4  17 mins 59 secs           25           5            6           6   
+5    5          18 mins           24           5            6           6   
+11  11  12 mins 59 secs           21           4            4           3   
+12  12  15 mins 44 secs           20           3            4           3   
+13  13    18 mins 1 sec           17           4            4           6   
+14  14          18 mins           17           5            4           3   
+15  15    18 mins 1 sec           16           3            6           3   
+6    6          18 mins           23           5            6           0   
+16  16  48 mins 39 secs           15           4            2           3   
+17  17    18 mins 1 sec           13           3            4           6   
+18  18  14 mins 31 secs           13           3            4           6   
+8    8  16 mins 44 secs           22           4            4           6   
+
+   Q. 4 /6.00 Q. 5 /12.00 Q. 6 /6.00  
+0        3.00       12.00       0.00  
+1           -       12.00       0.00  
+12          -       10.00       0.00  
+2        3.00       10.00          -  
+3        3.00        6.00       0.00  
+4        6.00        2.00       0.00  
+5        3.00        4.00          -  
+6        0.00        6.00       6.00  
+7        3.00        6.00       0.00  
+8        0.00        8.00       0.00  
+9        3.00           -          -  
+10          -           -          -  
+4        6.00        2.00       0.00  
+5        3.00        4.00          -  
+11       0.00        4.00       6.00  
+12          -       10.00       0.00  
+13       3.00        0.00          -  
+14       3.00        2.00       0.00  
+15       0.00        4.00          -  
+6        0.00        6.00       6.00  
+16       0.00        6.00       0.00  
+17          -           -          -  
+18       0.00        0.00       0.00  
+8        0.00        8.00       0.00  
+
+Top 10 Rows
+       State                 Started on                   Completed  \
+0   Finished   February 5 2018  3:19 PM    February 5 2018  3:34 PM   
+1   Finished   February 4 2018  4:01 PM    February 4 2018  4:19 PM   
+12  Finished   February 6 2018  3:57 PM    February 6 2018  4:12 PM   
+2   Finished  February 10 2018  4:05 PM   February 10 2018  4:23 PM   
+3   Finished   February 4 2018  4:59 PM    February 4 2018  5:16 PM   
+4   Finished   February 5 2018  5:20 PM    February 5 2018  5:38 PM   
+5   Finished  February 10 2018  9:49 PM  February 10 2018  10:07 PM   
+6   Finished   February 5 2018  8:30 PM    February 5 2018  8:48 PM   
+7   Finished  February 13 2018  4:17 AM   February 13 2018  4:35 AM   
+8   Finished  February 12 2018  2:19 PM   February 12 2018  2:35 PM   
+
+         Time taken  Grade/45.00  Q. 1 /5.00  Q. 2 /10.00  Q. 3 /6.00  \
+0   14 mins 16 secs           32           5            6           6   
+1   17 mins 54 secs           31           5            8           6   
+12  15 mins 44 secs           20           3            4           3   
+2           18 mins           30           5            6           6   
+3   17 mins 31 secs           26           5            6           6   
+4   17 mins 59 secs           25           5            6           6   
+5           18 mins           24           5            6           6   
+6           18 mins           23           5            6           0   
+7     18 mins 1 sec           23           4            4           6   
+8   16 mins 44 secs           22           4            4           6   
+
+   Q. 4 /6.00 Q. 5 /12.00 Q. 6 /6.00  id  
+0        3.00       12.00       0.00   0  
+1           -       12.00       0.00   1  
+12          -       10.00       0.00  12  
+2        3.00       10.00          -   2  
+3        3.00        6.00       0.00   3  
+4        6.00        2.00       0.00   4  
+5        3.00        4.00          -   5  
+6        0.00        6.00       6.00   6  
+7        3.00        6.00       0.00   7  
+8        0.00        8.00       0.00   8  
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12041,7 +12290,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q5_function</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12052,7 +12301,23 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">column_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+    
+    <span class="n">column_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">)):</span>
+        <span class="n">column_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">column_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">column_names</span>
+    
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()[</span><span class="s1">&#39;Timetaken&#39;</span><span class="p">]:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timetaken&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+   
+    <span class="n">minutes</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timetaken&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[0-9]+ min&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[0-9]+ min&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>  <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;0 min&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">seconds</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timetaken&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[0-9]+ sec&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[0-9]+ sec&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>  <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;0 sec&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">minutes</span> <span class="o">+</span> <span class="n">seconds</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Timetaken&#39;</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">column_types</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
 
 
 <span class="c1"># Call the function and print the results. These results are used in subsequent questions.</span>
@@ -12065,6 +12330,78 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Column Datatypes
+[dtype(&#39;int64&#39;), dtype(&#39;O&#39;), dtype(&#39;int64&#39;), dtype(&#39;int64&#39;), dtype(&#39;int64&#39;), dtype(&#39;int64&#39;), dtype(&#39;O&#39;), dtype(&#39;O&#39;), dtype(&#39;O&#39;)]
+
+New Update DataFrame
+    id  Grade/45.00  Q.1/5.00  Q.2/10.00  Q.3/6.00 Q.4/6.00 Q.5/12.00  \
+0    0           32         5          6         6     3.00     12.00   
+1    1           31         5          8         6        -     12.00   
+12  12           20         3          4         3        -     10.00   
+2    2           30         5          6         6     3.00     10.00   
+3    3           26         5          6         6     3.00      6.00   
+4    4           25         5          6         6     6.00      2.00   
+5    5           24         5          6         6     3.00      4.00   
+6    6           23         5          6         0     0.00      6.00   
+7    7           23         4          4         6     3.00      6.00   
+8    8           22         4          4         6     0.00      8.00   
+9    9           22         5          8         6     3.00         -   
+10  10           21         5         10         6        -         -   
+4    4           25         5          6         6     6.00      2.00   
+5    5           24         5          6         6     3.00      4.00   
+11  11           21         4          4         3     0.00      4.00   
+12  12           20         3          4         3        -     10.00   
+13  13           17         4          4         6     3.00      0.00   
+14  14           17         5          4         3     3.00      2.00   
+15  15           16         3          6         3     0.00      4.00   
+6    6           23         5          6         0     0.00      6.00   
+16  16           15         4          2         3     0.00      6.00   
+17  17           13         3          4         6        -         -   
+18  18           13         3          4         6     0.00      0.00   
+8    8           22         4          4         6     0.00      8.00   
+
+   Q.6/6.00  time  
+0      0.00   856  
+1      0.00  1074  
+12     0.00   944  
+2         -  1080  
+3      0.00  1051  
+4      0.00  1079  
+5         -  1080  
+6      6.00  1080  
+7      0.00  1081  
+8      0.00  1004  
+9         -  1081  
+10        -  1080  
+4      0.00  1079  
+5         -  1080  
+11     6.00   779  
+12     0.00   944  
+13        -  1081  
+14     0.00  1080  
+15        -  1081  
+6      6.00  1080  
+16     0.00  2919  
+17        -  1081  
+18     0.00   871  
+8      0.00  1004  
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12086,7 +12423,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q6_function</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12097,7 +12434,21 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
 
 <span class="c1"># Call the function and print the results.</span>
@@ -12106,6 +12457,88 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>      id  Grade/45.00  Q.1/5.00  Q.2/10.00  Q.3/6.00  Q.4/6.00  Q.5/12.00  \
+0    0.0    32.000000  5.000000   6.000000  6.000000       3.0      12.00   
+1    1.0    31.000000  5.000000   8.000000  6.000000       2.0      12.00   
+2   12.0    20.000000  3.000000   4.000000  3.000000       2.0      10.00   
+3    2.0    30.000000  5.000000   6.000000  6.000000       3.0      10.00   
+4    3.0    26.000000  5.000000   6.000000  6.000000       3.0       6.00   
+5    4.0    25.000000  5.000000   6.000000  6.000000       6.0       2.00   
+6    5.0    24.000000  5.000000   6.000000  6.000000       3.0       4.00   
+7    6.0    23.000000  5.000000   6.000000  0.000000       0.0       6.00   
+8    7.0    23.000000  4.000000   4.000000  6.000000       3.0       6.00   
+9    8.0    22.000000  4.000000   4.000000  6.000000       0.0       8.00   
+10   9.0    22.000000  5.000000   8.000000  6.000000       3.0       5.75   
+11  10.0    21.000000  5.000000  10.000000  6.000000       2.0       5.75   
+12  11.0    21.000000  4.000000   4.000000  3.000000       0.0       4.00   
+13  13.0    17.000000  4.000000   4.000000  6.000000       3.0       0.00   
+14  14.0    17.000000  5.000000   4.000000  3.000000       3.0       2.00   
+15  15.0    16.000000  3.000000   6.000000  3.000000       0.0       4.00   
+16  16.0    15.000000  4.000000   2.000000  3.000000       0.0       6.00   
+17  17.0    13.000000  3.000000   4.000000  6.000000       2.0       5.75   
+18  18.0    13.000000  3.000000   4.000000  6.000000       0.0       0.00   
+19  19.0    21.631579  4.315789   5.368421  4.894737       2.0       5.75   
+
+    Q.6/6.00         time  
+0        0.0   856.000000  
+1        0.0  1074.000000  
+2        0.0   944.000000  
+3        1.0  1080.000000  
+4        0.0  1051.000000  
+5        0.0  1079.000000  
+6        1.0  1080.000000  
+7        6.0  1080.000000  
+8        0.0  1081.000000  
+9        0.0  1004.000000  
+10       1.0  1081.000000  
+11       1.0  1080.000000  
+12       6.0   779.000000  
+13       1.0  1081.000000  
+14       0.0  1080.000000  
+15       1.0  1081.000000  
+16       0.0  2919.000000  
+17       1.0  1081.000000  
+18       0.0   871.000000  
+19       1.0  1125.368421  
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/rohan/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:13: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  del sys.path[0]
+/home/rohan/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:16: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  app.launch_new_instance()
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12130,7 +12563,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q7_function</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
@@ -12140,7 +12573,23 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">Q3_function</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    
+    <span class="n">grade</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[G|g]rade&#39;</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+            <span class="n">grade</span> <span class="o">=</span> <span class="n">column</span>
+    
+    <span class="n">mean_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">std_dev_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">first_quantile_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">second_quantile_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;50%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">third_quantile_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">max_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">min_grade</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">grade</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()[</span><span class="s1">&#39;min&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">mean_grade</span><span class="p">,</span> <span class="n">std_dev_grade</span><span class="p">,</span> <span class="n">first_quantile_grade</span><span class="p">,</span> <span class="n">second_quantile_grade</span><span class="p">,</span> <span class="n">third_quantile_grade</span><span class="p">,</span> <span class="n">max_grade</span><span class="p">,</span> <span class="n">min_grade</span><span class="p">)</span>
+
 
 <span class="c1"># Call the function and print the results.</span>
 <span class="n">mean_</span><span class="p">,</span><span class="n">std_</span><span class="p">,</span><span class="n">q1</span><span class="p">,</span><span class="n">q2</span><span class="p">,</span><span class="n">q3</span><span class="p">,</span><span class="n">max_</span><span class="p">,</span><span class="n">min_</span> <span class="o">=</span> <span class="n">Q7_function</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;Exceptions&quot;</span><span class="p">)</span>
@@ -12154,6 +12603,30 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean: 14.83
+Std. Dev.: 2.19
+First Quantile 13.46
+Second Quantile 14.66
+Third Quantile 16.62
+Max: 18.5
+Min: 10.83
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12172,7 +12645,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q8_function</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
@@ -12196,6 +12669,41 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f75f503aa20&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -12210,7 +12718,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q9_function</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
@@ -12221,7 +12729,12 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span> 
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">Q3_function</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">)</span>
+
 
 
 <span class="c1"># Call the function and print the results</span>
@@ -12231,6 +12744,25 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Rows: 17
+Columns: 7
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12251,7 +12783,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q10_function</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12262,16 +12794,44 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span> 
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
-
+    <span class="n">zero</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;0.00&#39;</span><span class="p">])</span>
+    
+    <span class="n">max_score_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
+    <span class="n">max_score_str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">max_score_int</span><span class="p">:</span>
+                    <span class="n">max_score_str</span> <span class="o">=</span> <span class="n">element</span>
+                                      
+    <span class="n">maximum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">max_score_str</span><span class="p">])</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">maximum</span><span class="p">)</span>
 
 <span class="c1"># Call the function and print the results</span>
-<span class="n">zero</span><span class="p">,</span> <span class="n">maximum</span> <span class="o">=</span> <span class="n">Q10_tutorial</span><span class="p">(</span><span class="n">Q6_df</span><span class="p">)</span>
+<span class="n">zero</span><span class="p">,</span> <span class="n">maximum</span> <span class="o">=</span> <span class="n">Q10_function</span><span class="p">(</span><span class="n">Q5_df</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Students scoring zero :&quot;</span><span class="p">,</span><span class="n">zero</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of students with maximum score :&quot;</span><span class="p">,</span><span class="n">maximum</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Students scoring zero : [9, 10, 17, 13, 18]
+Number of students with maximum score : 2
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12291,7 +12851,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q11_function</span><span class="p">():</span>
@@ -12302,15 +12862,46 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span> 
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
+    <span class="n">df_tuples</span> <span class="o">=</span> <span class="n">Q3_function</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s1">&#39;Tuples&#39;</span><span class="p">)</span>
+    <span class="n">col_type_tuple</span><span class="p">,</span> <span class="n">df_tuples</span> <span class="o">=</span> <span class="n">Q5_function</span><span class="p">(</span><span class="n">df_tuples</span><span class="p">)</span>
+    
+    <span class="n">df_taxonomy</span> <span class="o">=</span> <span class="n">Q3_function</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s1">&#39;Taxonomy&#39;</span><span class="p">)</span>
+    <span class="n">col_type_taxonomy</span><span class="p">,</span> <span class="n">df_taxonomy</span> <span class="o">=</span> <span class="n">Q5_function</span><span class="p">(</span><span class="n">df_taxonomy</span><span class="p">)</span>
+    
+    <span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_tuples</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_taxonomy</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+    
+    <span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;Total_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;Grade/20.00&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;Grade/21.00&#39;</span><span class="p">]</span>
 
-
+    <span class="n">max_scorer_df</span> <span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;Total_score&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;Total_score&#39;</span><span class="p">])]</span>
+    <span class="n">max_scorer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_scorer_df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">df_merged</span><span class="p">,</span> <span class="n">max_scorer</span><span class="p">)</span>
+    
+    
 <span class="c1"># Call the function and print the results. The DataFrame will be used in subsequent questions</span>
 <span class="n">Q11_df</span><span class="p">,</span><span class="n">max_scorer</span> <span class="o">=</span> <span class="n">Q11_function</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max scorer :&quot;</span><span class="p">,</span><span class="n">max_scorer</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Max scorer : 10
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12329,7 +12920,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q12_function</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12340,15 +12931,32 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span> 
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
-
-
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time_x&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time_y&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="o">*</span> <span class="mi">60</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]))</span>
+    
 <span class="c1"># Call the function and print the results.</span>
 <span class="n">ids</span> <span class="o">=</span> <span class="n">Q12_function</span><span class="p">(</span><span class="n">Q11_df</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ID of students :&quot;</span><span class="p">,</span><span class="n">ids</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ID of students : [3, 4, 7, 8, 12, 18]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12371,7 +12979,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Q13_function</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12382,15 +12990,47 @@ div#notebook {
 <span class="sd">    &quot;&quot;&quot;</span>    
     <span class="c1"># TYPE YOUR CODE HERE</span>
     
-    <span class="k">pass</span>
-
-
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">data_bin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Grade/45.00&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+    
+    <span class="n">data_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+    <span class="n">data_new</span><span class="p">[</span><span class="s1">&#39;bins&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_bin</span>
+    <span class="n">data_new</span> <span class="o">=</span> <span class="n">data_new</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;bins&#39;</span><span class="p">)[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">data_new</span><span class="p">)</span>
+    
 <span class="c1"># Call the function and print the results.</span>
 <span class="n">Q13_df</span> <span class="o">=</span> <span class="n">Q13_function</span><span class="p">(</span><span class="n">Q6_df</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Q13_df</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>bins
+(12.981, 16.8]                 [15.0, 16.0, 17.0, 18.0]
+(16.8, 20.6]                         [12.0, 13.0, 14.0]
+(20.6, 24.4]      [5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0]
+(24.4, 28.2]                                 [3.0, 4.0]
+(28.2, 32.0]                            [0.0, 1.0, 2.0]
+Name: id, dtype: object
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12405,14 +13045,19 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
 
 <span class="k">class</span> <span class="nc">TestNotebook</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
-
+    <span class="k">def</span> <span class="nf">test_Q01_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;./data_raw/Python-QUIZ Sets (7 min)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Strings (5 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Functions (18 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Exceptions (10 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Taxonomy of Python Data Structures (12 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Coercion (6 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Dictionaries (10 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Iterations (6 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Tuples (10 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Conditionals (6 min.)-grades.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;./data_raw/Python-QUIZ Lists (10 min.)-grades.xlsx&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Q1_function</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        
     <span class="k">def</span> <span class="nf">test_Q02_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         
         <span class="n">ans</span><span class="o">=</span><span class="s1">&#39;Python-QUIZ Lists (10 min.)-grades.xlsx&#39;</span>
@@ -12422,6 +13067,17 @@ div#notebook {
         <span class="c1">#Handling removal of the path to check only filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
+    <span class="k">def</span> <span class="nf">test_Q03_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">,</span> <span class="s1">&#39;Started on&#39;</span><span class="p">,</span> <span class="s1">&#39;Completed&#39;</span><span class="p">,</span> <span class="s1">&#39;Time taken&#39;</span><span class="p">,</span> <span class="s1">&#39;Grade/45.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 1 /5.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 2 /10.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 3 /6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 4 /6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 5 /12.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q. 6 /6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Q3_function</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Functions&quot;</span><span class="p">)</span>
+        <span class="n">result_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        
+        <span class="n">nrow</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ncol</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="mi">24</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="mi">12</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">columns</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="p">(</span><span class="n">result_columns</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span>
         
     <span class="k">def</span> <span class="nf">test_Q04_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         
@@ -12435,14 +13091,59 @@ div#notebook {
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">subset_cols_ans</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">subset_result</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">top_ans</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">top_result</span><span class="p">))</span>
         
+    <span class="k">def</span> <span class="nf">test_Q05_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">column_data_types</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span> <span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+        <span class="n">column_types</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">Q5_function</span><span class="p">(</span><span class="n">df_subset</span><span class="p">)</span>
         
+        <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Grade/45.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.1/5.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.2/10.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.3/6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.4/6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.5/12.00&#39;</span><span class="p">,</span> <span class="s1">&#39;Q.6/6.00&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="n">result_column_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">column_data_types</span><span class="p">,</span> <span class="n">column_names</span><span class="p">,</span> <span class="p">),</span> <span class="p">(</span><span class="n">column_types</span><span class="p">,</span> <span class="n">result_column_names</span><span class="p">,</span> <span class="p">))</span>
+        
+    <span class="k">def</span> <span class="nf">test_Q06_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Q6_function</span><span class="p">(</span><span class="n">Q5_df</span><span class="p">)</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+        
+        <span class="n">duplicate_bool</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
+        <span class="n">duplicate</span> <span class="o">=</span> <span class="kc">True</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">duplicate_bool</span><span class="p">)</span>
+        
+        <span class="n">mean_row</span> <span class="o">=</span> <span class="p">[</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">21.63157894736842</span><span class="p">,</span> <span class="mf">4.315789473684211</span><span class="p">,</span> <span class="mf">5.368421052631579</span><span class="p">,</span> <span class="mf">4.894736842105263</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1125.3684210526317</span><span class="p">]</span>
+        <span class="n">result_mean_row</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">duplicate</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">mean_row</span><span class="p">),</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">result_mean_row</span><span class="p">))</span>
+        
+        
+    
     <span class="k">def</span> <span class="nf">test_Q07_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        
         <span class="n">ans</span><span class="o">=</span><span class="p">(</span><span class="mf">14.83</span><span class="p">,</span><span class="mf">2.19</span><span class="p">,</span><span class="mf">13.46</span><span class="p">,</span><span class="mf">14.66</span><span class="p">,</span><span class="mf">16.62</span><span class="p">,</span><span class="mf">18.5</span><span class="p">,</span><span class="mf">10.83</span><span class="p">)</span> 
         <span class="n">result</span><span class="o">=</span><span class="n">Q7_function</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;Exceptions&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">test_Q08_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
         
+    <span class="k">def</span> <span class="nf">test_Q09_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="mi">17</span>
+        <span class="n">ncols</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">Q9_function</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;Strings&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">),</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">))</span>
+        
+        
+    <span class="k">def</span> <span class="nf">test_Q10_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">zero_ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">18</span><span class="p">]</span>
+        <span class="n">max_ans</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">zero</span><span class="p">,</span> <span class="n">maximum</span> <span class="o">=</span> <span class="n">Q10_function</span><span class="p">(</span><span class="n">Q5_df</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">zero_ans</span><span class="p">,</span> <span class="n">max_ans</span><span class="p">),</span> <span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">maximum</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">test_Q11_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">max_scorer_ans</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">total_score_ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+        
+        <span class="n">df</span><span class="p">,</span> <span class="n">max_scorer</span> <span class="o">=</span> <span class="n">Q11_function</span><span class="p">()</span>
+        <span class="n">total_score</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Total_score&#39;</span><span class="p">])</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">((</span><span class="n">max_scorer_ans</span><span class="p">,</span> <span class="n">total_score_ans</span><span class="p">),</span> <span class="p">(</span><span class="n">max_scorer</span><span class="p">,</span> <span class="n">total_score</span><span class="p">))</span>
+            
     <span class="k">def</span> <span class="nf">test_Q12_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ans</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">]</span>   
         <span class="n">result</span><span class="o">=</span><span class="n">Q12_function</span><span class="p">(</span><span class="n">Q11_df</span><span class="p">)</span>
@@ -12461,6 +13162,73 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>test_Q01_function (__main__.TestNotebook) ... ok
+test_Q02_function (__main__.TestNotebook) ... ok
+test_Q03_function (__main__.TestNotebook) ... /home/rohan/anaconda3/lib/python3.7/site-packages/defusedxml/ElementTree.py:68: DeprecationWarning: The html argument of XMLParser() is deprecated
+  _XMLParser.__init__(self, html, target, encoding)
+/home/rohan/anaconda3/lib/python3.7/site-packages/xlrd/xlsx.py:266: PendingDeprecationWarning: This method will be removed in future versions.  Use &#39;tree.iter()&#39; or &#39;list(tree.iter())&#39; instead.
+  for elem in self.tree.iter() if Element_has_iter else self.tree.getiterator():
+/home/rohan/anaconda3/lib/python3.7/site-packages/xlrd/xlsx.py:312: PendingDeprecationWarning: This method will be removed in future versions.  Use &#39;tree.iter()&#39; or &#39;list(tree.iter())&#39; instead.
+  for elem in self.tree.iter() if Element_has_iter else self.tree.getiterator():
+ok
+test_Q04_function (__main__.TestNotebook) ... ok
+test_Q05_function (__main__.TestNotebook) ... ok
+test_Q06_function (__main__.TestNotebook) ... /home/rohan/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:13: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  del sys.path[0]
+/home/rohan/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:16: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  app.launch_new_instance()
+/home/rohan/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:55: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+ok
+test_Q07_function (__main__.TestNotebook) ... ok
+test_Q08_function (__main__.TestNotebook) ... ok
+test_Q09_function (__main__.TestNotebook) ... ok
+test_Q10_function (__main__.TestNotebook) ... ok
+test_Q11_function (__main__.TestNotebook) ... ok
+test_Q12_function (__main__.TestNotebook) ... ok
+test_Q13_function (__main__.TestNotebook) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.709s
+
+OK
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[62]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;unittest.main.TestProgram at 0x7f75f2da53c8&gt;</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 

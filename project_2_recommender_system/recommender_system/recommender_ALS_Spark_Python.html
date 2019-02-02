@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>recommender_ALS_Spark_Python_01122019</title>
+<title>recommender_ALS_Spark_Python</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13137,7 +13137,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import libraries</span>
@@ -13145,6 +13145,7 @@ div#notebook {
 <span class="n">findspark</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">pyspark.mllib.recommendation</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyspark</span> <span class="k">import</span> <span class="n">SparkContext</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
@@ -13157,11 +13158,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize Spark Context</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13179,11 +13182,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import test files from location into RDD variables</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="n">artistData</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s1">&#39;./data_raw/artist_data_small.txt&#39;</span><span class="p">)</span>
+<span class="n">artistAlias</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s1">&#39;./data_raw/artist_alias_small.txt&#39;</span><span class="p">)</span>
+<span class="n">userArtistData</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s1">&#39;./data_raw/user_artist_data_small.txt&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13205,29 +13212,79 @@ User 2069337 has a total play count of 393515 and a mean play count of 1519.</co
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split a sequence into seperate entities and store as int</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
 
+<span class="n">userArtistDataList</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">userArtistData</span><span class="o">.</span><span class="n">collect</span><span class="p">():</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">userArtistDataList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="n">userArtistData</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">userArtistDataList</span><span class="p">)</span>
+
 <span class="c1"># Create a dictionary of the &#39;artistAlias&#39; dataset</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="n">artistAliasDict</span> <span class="o">=</span><span class="p">{}</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">artistAlias</span><span class="o">.</span><span class="n">collect</span><span class="p">():</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="n">artistAliasDict</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># If artistid exists, replace with artistsid from artistAlias, else retain original</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
 
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">userArtistDataList</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">artistAliasDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">artistAliasDict</span><span class="p">[</span><span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">userArtistDataList</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+
 <span class="c1"># Create an RDD consisting of &#39;userid&#39; and &#39;playcount&#39; objects of original tuple</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="n">userPlaycounts</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">((</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">temp</span> <span class="ow">in</span> <span class="n">userArtistDataList</span><span class="p">)</span>
 
 <span class="c1"># Count instances by key and store in broadcast variable</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
 
+<span class="n">broadcastVar</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">userPlaycounts</span><span class="o">.</span><span class="n">countByKey</span><span class="p">())</span>
+
+
 <span class="c1"># Compute and display users with the highest playcount along with their mean playcount across artists</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="n">sortedPlayCounts</span> <span class="o">=</span> <span class="n">userPlaycounts</span><span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">sortedPlayCounts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sortedPlayCounts</span><span class="o">.</span><span class="n">collect</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;has a total play count of&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;and a mean play count of&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">broadcastVar</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;has a total play count of&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;and a mean play count of&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">broadcastVar</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;has a total play count of&#39;</span><span class="p">,</span> <span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;and a mean play count of&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">broadcastVar</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">sortedPlayCounts</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]]))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>User 1059637 has a total play count of 674412 and a mean play count of 1878
+User 2064012 has a total play count of 548427 and a mean play count of 9455
+User 2069337 has a total play count of 393515 and a mean play count of 1519
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13256,17 +13313,52 @@ User 2069337 has a total play count of 393515 and a mean play count of 1519.</co
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split the &#39;userArtistData&#39; dataset into training, validation and test datasets. Store in cache for frequent access</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
 
+<span class="n">trainData</span><span class="p">,</span> <span class="n">validationData</span><span class="p">,</span> <span class="n">testData</span> <span class="o">=</span> <span class="n">userArtistData</span><span class="o">.</span><span class="n">randomSplit</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
+<span class="n">trainData</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+<span class="n">validationData</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+<span class="n">testData</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+
 <span class="c1"># Display the first 3 records of each dataset followed by the total count of records for each datasets</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+
+<span class="nb">print</span><span class="p">([</span><span class="n">trainData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trainData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">trainData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">validationData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">validationData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">validationData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">testData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">testData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">testData</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainData</span><span class="o">.</span><span class="n">collect</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">validationData</span><span class="o">.</span><span class="n">collect</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">testData</span><span class="o">.</span><span class="n">collect</span><span class="p">()))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[(1059637, 1000049, 1), (1059637, 1000056, 1), (1059637, 1000114, 2)]
+[(1059637, 1000010, 238), (1059637, 1000062, 11), (1059637, 1000123, 2)]
+[(1059637, 1000094, 1), (1059637, 1000112, 423), (1059637, 1000113, 5)]
+19761
+19862
+9858
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13286,7 +13378,7 @@ User 2069337 has a total play count of 393515 and a mean play count of 1519.</co
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">modelEval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
@@ -13294,20 +13386,51 @@ User 2069337 has a total play count of 393515 and a mean play count of 1519.</co
     <span class="c1"># All artists in the &#39;userArtistData&#39; dataset</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
     
+    <span class="n">allArtists</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">userArtistData</span><span class="o">.</span><span class="n">collect</span><span class="p">()))</span>
+    
     <span class="c1"># Set of all users in the current (Validation/Testing) dataset</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
+    
+    <span class="n">allUsersDataset</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">collect</span><span class="p">()))</span>
     
     <span class="c1"># Create a dictionary of (key, values) for current (Validation/Testing) dataset</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
     
+    <span class="n">userArtistDict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">allUsersDataset</span><span class="p">:</span>
+        <span class="n">userArtistDict</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">collect</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">user</span><span class="p">:</span>
+                <span class="n">userArtistDict</span><span class="p">[</span><span class="n">user</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
     <span class="c1"># Create a dictionary of (key, values) for training dataset</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
     
+    <span class="n">userArtistDictTraining</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">allUsersDataset</span><span class="p">:</span>
+        <span class="n">userArtistDictTraining</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">trainData</span><span class="o">.</span><span class="n">collect</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">user</span><span class="p">:</span>
+                <span class="n">userArtistDictTraining</span><span class="p">[</span><span class="n">user</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                
     <span class="c1"># For each user, calculate the prediction score i.e. similarity between predicted and actual artists</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
-        
+    
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">allUsersDataset</span><span class="p">:</span>
+        <span class="n">actualArtists</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">allArtists</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">userArtistDictTraining</span><span class="p">[</span><span class="n">user</span><span class="p">]))</span>
+        <span class="n">userProduct</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([(</span><span class="n">user</span><span class="p">,</span> <span class="n">artist</span><span class="p">)</span> <span class="k">for</span> <span class="n">artist</span> <span class="ow">in</span> <span class="n">actualArtists</span><span class="p">])</span>
+        <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predictAll</span><span class="p">(</span><span class="n">userProduct</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="n">predicted</span> <span class="o">=</span> <span class="p">[(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">element</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">predicted</span><span class="p">]</span>
+        <span class="n">predicted</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">userArtistDict</span><span class="p">[</span><span class="n">user</span><span class="p">])</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">userArtistDict</span><span class="p">[</span><span class="n">user</span><span class="p">])</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">predicted</span><span class="p">[:</span><span class="n">X</span><span class="p">]))</span> <span class="o">/</span> <span class="n">X</span><span class="p">)</span>
+ 
     <span class="c1"># Print average score of the model for all users for the specified rank</span>
     <span class="c1"># YOUR CODE GOES HERE</span>
+                                            
+    <span class="n">averageScoreModel</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">score</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">userArtistDict</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The model score for rank&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span><span class="s1">&#39;is ~&#39;</span><span class="p">,</span> <span class="n">averageScoreModel</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13332,16 +13455,36 @@ The model score for rank 20 is ~0.090248</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># rankList = [2,10,20]</span>
-<span class="c1"># for rank in rankList:</span>
-<span class="c1">#     model = ALS.trainImplicit(trainData, rank , seed=345)</span>
-<span class="c1">#     modelEval(model,validationData)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="n">rankList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+ <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">rankList</span><span class="p">:</span>
+     <span class="n">model</span> <span class="o">=</span> <span class="n">ALS</span><span class="o">.</span><span class="n">trainImplicit</span><span class="p">(</span><span class="n">trainData</span><span class="p">,</span> <span class="n">rank</span> <span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">345</span><span class="p">)</span>
+     <span class="n">modelEval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">validationData</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The model score for rank 2 is ~ 0.08134903909212034
+The model score for rank 10 is ~ 0.09003583251911607
+The model score for rank 20 is ~ 0.08304036880107794
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13357,14 +13500,32 @@ Step below takes 1 minute to run. Uncomment last line if you wish to run and cal
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bestModel</span> <span class="o">=</span> <span class="n">ALS</span><span class="o">.</span><span class="n">trainImplicit</span><span class="p">(</span><span class="n">trainData</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">345</span><span class="p">)</span>
-<span class="c1"># modelEval(bestModel, testData)</span>
+<span class="n">modelEval</span><span class="p">(</span><span class="n">bestModel</span><span class="p">,</span> <span class="n">testData</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The model score for rank 10 is ~ 0.060813466314595103
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13385,14 +13546,44 @@ Artist 4: Counting Crows</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find the top 5 artists for a particular user and list their names</span>
 <span class="c1"># YOUR CODE GOES HERE</span>
+<span class="n">artistNameDict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">artistData</span><span class="o">.</span><span class="n">collect</span><span class="p">():</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">artistNameDict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+<span class="n">topArtists</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bestModel</span><span class="o">.</span><span class="n">recommendProducts</span><span class="p">(</span><span class="mi">1059637</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">artist</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Artist&#39;</span><span class="p">,</span> <span class="n">artist</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">artistNameDict</span><span class="p">[</span><span class="n">topArtists</span><span class="p">[</span><span class="n">artist</span><span class="p">]])</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Artist 0 : My Chemical Romance
+Artist 1 : Something Corporate
+Artist 2 : Evanescence
+Artist 3 : Alanis Morissette
+Artist 4 : Counting Crows
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
